@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "title":"Quotes",
+    "owner":"Ada",
+    "cards":[]
+  },
+  {
+    "id": 2,
+    "title":"Hiking",
+    "owner":"Larissa",
+    "cards":[
+      {
+      "id": 1,
+      "message":"I love hiking in Seattle",
+      "likes":0,
+      "board_id": 2
+    },
+    {
+      "id": 2,
+      "message":"Rain & Mud",
+      "likes":3,
+      "board_id": 2
+    }
+  ]
+  },
+  {
+    "id": 3,
+    "title":"Fun",
+    "owner":"Stacey",
+    "cards":[
+      {
+        "id": 3,
+        "message":"live laugh love",
+        "likes":2,
+        "board_id": 3
+      },
+      {
+        "id": 4,
+        "message":"fun in the sun",
+        "likes":7,
+        "board_id": 3
+      },
+      {
+        "id": 5,
+        "message":"rollercoaster",
+        "likes":19,
+        "board_id": 3
+      },
+      {
+        "id": 6,
+        "message":"stretching",
+        "likes":3,
+        "board_id": 3
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title":"Test",
+    "owner":"test owner",
+    "cards":[]
+  }
+]
