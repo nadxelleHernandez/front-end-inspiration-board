@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function NewBoardForm() {
+function NewBoardForm(props) {
   // todo: On submit, call "props.addBoard" function
   const [formFields, setFormFields] = useState({
     title: '',
@@ -23,9 +23,23 @@ function NewBoardForm() {
     })
   };
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+
+        props.addBoardCallBack({
+            title: formFields.title,
+            owner: formFields.owner
+        });
+
+        setFormFields({
+            title: '',
+            owner: '',
+        });
+  };
+
   return (
     <section>
-      <form>
+      <form onSubmit={onFormSubmit}>
         <div>
             <label htmlFor="title">Title:</label>
             <input 

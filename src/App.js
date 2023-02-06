@@ -29,7 +29,7 @@ function App() {
     // Then update selectedBoard state
   };
 
-  const addBoard = () => {
+  const addBoard = (newBoard) => {
     // TODO: make API call to add board
     const newBoards = [...boards];
 
@@ -38,8 +38,8 @@ function App() {
 
     newBoards.push({
         id: nextId,
-        title: newBoards.nameData,
-        owner: newBoards.emailData,
+        title: newBoard.title,
+        owner: newBoard.owner,
         cards: [], // TODO: might keep? 
     });
 
