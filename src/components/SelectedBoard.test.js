@@ -3,7 +3,8 @@ import Card from './Card';
 import CardList from './CardList';
 import SelectedBoard from './SelectedBoard';
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
+import NewCardForm from './NewCardForm';
 
 
 const foodCards = [
@@ -73,3 +74,22 @@ describe("Card Component", () =>{
         expect(screen.getByText(/2/)).toBeInTheDocument();
     });
 });
+
+// NewCardForm component
+describe("submiting New Card Form , new card will be added to cards", ()=>{
+    test("New card is added to foodcards", ()=>{
+        //Arrange
+        const newCard = {message: "Croissant is my fav pastry."}
+        const boardId = 1
+
+        const mockCardSubmit = jest.fn();
+        const {getByText, getByLabelText} = render(<NewCardForm selectedBoard={boardId} addCard={mockCardSubmit}/>)
+
+        fireEvent.change(getByLabelText("Message"), {target:{value: newCard.message}})
+        fireEvent.click(getByText("Submit"));
+
+        expect(mockCardSubmit).toBeCalled();
+        expect(mockCardSubmit.mock.calls).toEqual([[{message: newCard.message}]]);
+
+    })
+})
