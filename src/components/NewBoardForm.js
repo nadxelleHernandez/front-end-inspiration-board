@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import  "./NewBoardForm.css";
 
 function NewBoardForm(props) {
   // todo: On submit, call "props.addBoard" function
@@ -9,7 +10,11 @@ function NewBoardForm(props) {
     owner: ''
   });
 
+  const [show, setShow] = useState(true);
+
   const isDisabled = (formFields.title === "") || (formFields.owner === "");
+  const buttonDisplayBoardForm = show ? "Hide New Board Form" : "Show New Board Form";
+  const classFormDisplay = show ? "board-form-visible" : "board-form-hidden"
 
   const onTitleChange = (event) => {
     setFormFields({
@@ -39,9 +44,14 @@ function NewBoardForm(props) {
         });
   };
 
+  const onToggleVisibility = () => {
+    setShow(!show);
+  };
+
   return (
     <section>
-      <form onSubmit={onFormSubmit}>
+      <h2>Create a New Board</h2>
+      <form className={classFormDisplay} onSubmit={onFormSubmit}>
         <div>
             <label htmlFor="title">Title:</label>
             <input
@@ -59,9 +69,9 @@ function NewBoardForm(props) {
                 onChange={onOwnerChange} />
         </div>
         <button disabled={isDisabled} type="submit">Submit Query</button>
+        <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
       </form>
-      <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
-      <button>Hide New Board Form</button>
+      <button className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</button>
     </section>
     
   );
