@@ -30,8 +30,20 @@ function App() {
   };
 
   const addBoard = () => {
-    // todo: make API call to add board
-    // Then update Boards state
+    // TODO: make API call to add board
+    const newBoards = [...boards];
+
+    // TODO: Remove when accessing API
+    const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
+
+    newBoards.push({
+        id: nextId,
+        title: newBoards.nameData,
+        owner: newBoards.emailData,
+        cards: [], // TODO: might keep? 
+    });
+
+    setBoards(newBoards);
   };
 
   return (
@@ -44,7 +56,7 @@ function App() {
           selectedBoard && [<NewCardForm />, <CardList />]
         }
         <BoardList boards={boards} />
-        <NewBoardForm />
+        <NewBoardForm addBoardCallBack={addBoard}/>
       </main>
     </div>
   );

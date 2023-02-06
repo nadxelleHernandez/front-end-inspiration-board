@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function NewBoardForm() {
   // todo: On submit, call "props.addBoard" function
@@ -21,9 +22,6 @@ function NewBoardForm() {
         owner: event.target.value
     })
   };
-
-
-
 
   return (
     <section>
@@ -51,4 +49,9 @@ function NewBoardForm() {
     
   );
 }
+
+NewBoardForm.propTypes = {
+  addBoardCallBack: PropTypes.func.isRequired
+};
+
 export default NewBoardForm;
