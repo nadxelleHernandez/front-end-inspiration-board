@@ -51,7 +51,11 @@ function NewBoardForm(props) {
   return (
     <section>
       <h2>Create a New Board</h2>
-      <form className={classFormDisplay} onSubmit={onFormSubmit}>
+      <form
+        aria-label="Create a New Board"
+        name="boardForm"
+        className={classFormDisplay} 
+        onSubmit={onFormSubmit}>
         <div>
             <label htmlFor="title">Title:</label>
             <input
