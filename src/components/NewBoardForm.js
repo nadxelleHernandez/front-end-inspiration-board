@@ -9,6 +9,8 @@ function NewBoardForm(props) {
     owner: ''
   });
 
+  const isDisabled = (formFields.title === "") || (formFields.owner === "");
+
   const onTitleChange = (event) => {
     setFormFields({
         ...formFields,
@@ -42,21 +44,21 @@ function NewBoardForm(props) {
       <form onSubmit={onFormSubmit}>
         <div>
             <label htmlFor="title">Title:</label>
-            <input 
+            <input
+                required
                 name="title"
                 value={formFields.title}
                 onChange={onTitleChange} />
         </div>
         <div>
             <label htmlFor="owner">Owner:</label>
-            <input 
+            <input
+                required
                 name="owner"
                 value={formFields.owner}
                 onChange={onOwnerChange} />
         </div>
-        <input
-            type="submit"
-            value="Submit Query" />
+        <button disabled={isDisabled} type="submit">Submit Query</button>
       </form>
       <button>Hide New Board Form</button>
     </section>
