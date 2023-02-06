@@ -60,6 +60,7 @@ function NewBoardForm(props) {
         </div>
         <button disabled={isDisabled} type="submit">Submit Query</button>
       </form>
+      <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
       <button>Hide New Board Form</button>
     </section>
     
