@@ -6,6 +6,7 @@ import NewBoardForm from './components/NewBoardForm';
 import NewCardForm from './components/NewCardForm';
 import SelectedBoard from './components/SelectedBoard';
 import boardData from './data/boards.json';
+import cardData from './data/cards.json'
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   // Updated when user selects a board
   // todo: Should this contain the cards for the board or use separate state for cards?
   const [selectedBoard, setSelectedBoard] = useState(null);
+  const [cards, setCards] = useState(cardData);
 
 
   const fetchBoards = () =>{
@@ -34,6 +36,18 @@ function App() {
     // todo: make API call to add board
     // Then update Boards state 
   };
+
+  const addCard = (newCard) =>{
+    //Duplicate current card data
+    const newCardData = [...selectedBoard];
+
+    newCardData.push({
+      id: 100,
+      message: newCard.messageData
+    })
+
+    setSelectedBoard(newCardData);
+  }
 
 
   return (

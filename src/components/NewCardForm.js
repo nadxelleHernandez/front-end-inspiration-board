@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-function NewCardForm({selectedBoard}) {
+function NewCardForm({selectedBoard, addCard}) {
     const [formFields, setFormFields] = useState({
         message:"",
     })
@@ -9,11 +9,18 @@ function NewCardForm({selectedBoard}) {
     const [message, setMessage] = useState("")
 
     // On submit, call API to create a new card under the selected board
-    const addCard = () => {
+    const addCardonSubmit = (event) => {
         //todo:
         // make API call to update cards in the database
         // also update selectedBoard state, then CardList component will get re-rendered
         // or just call fetchCards function to reload?
+        event.preventDefault();
+        addCard({
+            messageData: formFields.message
+        })
+
+        setFormFields({message:""});
+        setMessage("");
     };
 
     const fieldsOnChange = (event)=>{
@@ -31,7 +38,7 @@ function NewCardForm({selectedBoard}) {
     }
 
     return (
-        <form>
+        <form onSubmit={addCardonSubmit}>
             <h3>Create a New Card</h3>
             <div>
                 <label htmlFor="message"></label>
