@@ -15,6 +15,9 @@ function NewBoardForm(props) {
   const isDisabled = (formFields.title === "") || (formFields.owner === "");
   const buttonDisplayBoardForm = show ? "Hide New Board Form" : "Show New Board Form";
   const classFormDisplay = show ? "board-form-visible" : "board-form-hidden"
+  const titleInput = (formFields.title === "") ? "error" : "valid";
+  const ownerInput = (formFields.owner === "") ? "error" : "valid";
+
 
   const onTitleChange = (event) => {
     setFormFields({
@@ -57,6 +60,7 @@ function NewBoardForm(props) {
             <input
                 required
                 name="title"
+                className={`title-input ` + titleInput}
                 value={formFields.title}
                 onChange={onTitleChange} />
         </div>
@@ -65,6 +69,7 @@ function NewBoardForm(props) {
             <input
                 required
                 name="owner"
+                className={`owner-input ` + ownerInput}
                 value={formFields.owner}
                 onChange={onOwnerChange} />
         </div>
