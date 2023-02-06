@@ -1,13 +1,12 @@
 import React from "react";
 // import './App.css';
-import BoardList from './components/BoardList';
-import CardList from './components/CardList';
-import NewBoardForm from './components/NewBoardForm';
-import NewCardForm from './components/NewCardForm';
-import SelectedBoard from './components/SelectedBoard';
-import boardData from './data/boards.json';
-import cardData from './data/cards.json'
-import { useState, useEffect } from 'react';
+import BoardList from "./components/BoardList";
+import CardList from "./components/CardList";
+import NewBoardForm from "./components/NewBoardForm";
+import NewCardForm from "./components/NewCardForm";
+import SelectedBoard from "./components/SelectedBoard";
+import boardData from "./data/boards.json";
+import { useState, useEffect } from "react";
 
 function App() {
   // Displayed by BoardList.
@@ -20,47 +19,45 @@ function App() {
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [cards, setCards] = useState(cardData);
 
-
-  const fetchBoards = () =>{
-    // todo: Make an API call to fetch boards 
+  const fetchBoards = () => {
+    // todo: Make an API call to fetch boards
     // and update boards state
-  }
-  useEffect(() => fetchBoards(), [])
+  };
+  useEffect(() => fetchBoards(), []);
 
   const fetchCards = (boardId) => {
     // todo: Make API call to get all cards belonging to the chosen board
     // Then update selectedBoard state
   };
 
-  const addBoard = () => {
-    // todo: make API call to add board
-    // Then update Boards state 
+  const addBoard = (newBoard) => {
+    // TODO: make API call to add board
+    const newBoards = [...boards];
+
+    // TODO: Remove when accessing API
+    const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
+
+    newBoards.push({
+        id: nextId,
+        title: newBoard.title,
+        owner: newBoard.owner,
+        cards: [], // TODO: might keep? 
+    });
+
+    setBoards(newBoards);
   };
-
-  const addCard = (newCard) =>{
-    //Duplicate current card data
-    const newCardData = [...selectedBoard];
-
-    newCardData.push({
-      id: 100,
-      message: newCard.messageData
-    })
-
-    setSelectedBoard(newCardData);
-  }
-
 
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <header className="App-header"></header>
       <main>
         {
           // NewCardForm and CardList components only get displayed
           // when there is a selected board.
           selectedBoard && [<NewCardForm />, <CardList />]
         }
-        <BoardList boards={boards}/>
+        <BoardList boards={boards} />
+        <NewBoardForm addBoardCallBack={addBoard}/>
       </main>
     </div>
   );
