@@ -41,11 +41,11 @@ function App() {
       <header className="App-header">
       </header>
       <main>
-        {/* {
+        {
           // NewCardForm and CardList components only get displayed
           // when there is a selected board.
           selectedBoard && [<NewCardForm />, <CardList />]
-        } */}
+        }
         <BoardList boards={boards}/>
       </main>
     </div>

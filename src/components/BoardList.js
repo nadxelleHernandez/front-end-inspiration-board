@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Board from "./Board";
 
-
-
 function BoardList (props) {
   const boardComponents = props.boards.map((board) => {
     return (
