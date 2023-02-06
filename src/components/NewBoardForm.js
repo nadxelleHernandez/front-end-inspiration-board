@@ -32,13 +32,15 @@ function NewBoardForm() {
             <label htmlFor="title">Title:</label>
             <input 
                 name="title"
-                value={formFields.title}/>
+                value={formFields.title}
+                onChange={onTitleChange} />
         </div>
         <div>
             <label htmlFor="owner">Owner:</label>
             <input 
                 name="owner"
-                value={formFields.owner}/>
+                value={formFields.owner}
+                onChange={onOwnerChange} />
         </div>
         <input
             type="submit"
