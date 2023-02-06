@@ -6,7 +6,24 @@ function NewBoardForm() {
   const [formFields, setFormFields] = useState({
     title: '',
     owner: ''
-});
+  });
+
+  const onTitleChange = (event) => {
+    setFormFields({
+        ...formFields,
+        title: event.target.value
+    })
+  };
+
+  const onOwnerChange = (event) => {
+    setFormFields({
+        ...formFields,
+        owner: event.target.value
+    })
+  };
+
+
+
 
   return (
     <section>
