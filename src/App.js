@@ -101,7 +101,7 @@ function App() {
         <h1>Inspiration Board</h1>
       </header>
       <main>
-        <Container>
+        <Container fluid>
           <Row>
             <Col sm><BoardList boards={boards} onUpdateSelectedBoard={updateSelectedBoard}/></Col>
             <Col sm><SelectedBoard board={selectedBoard}/></Col>
