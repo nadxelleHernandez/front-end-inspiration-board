@@ -22,7 +22,7 @@ function App() {
   // Updated when user selects a board
   // todo: Should this contain the cards for the board or use separate state for cards?
   const [selectedBoard, setSelectedBoard] = useState(null);
-  const [cards, setCards] = useState(cardData);
+  const [cards, setCards] = useState();
 
   const fetchBoards = () => {
     // todo: Make an API call to fetch boards
@@ -75,8 +75,10 @@ function App() {
     };
 
     setSelectedBoard(newSelectedBoard);
+
     //Todo: Need to update card data, we are passing in card data here :D
     // Make a api call to get cards belonging to this board
+    setCards(board.cards);
   };
 
 
@@ -109,7 +111,7 @@ function App() {
           </Row>
           <Row>
             <Col sm={8}>
-              {selectedBoard && [<CardList cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]}
+              {selectedBoard && [<CardList boardTitle={selectedBoard.title} cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]}
             </Col>
             <Col sm={4}>
               {selectedBoard && [<NewCardForm addCard={addCard}/>]}
