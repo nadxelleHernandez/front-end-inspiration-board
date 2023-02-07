@@ -16,7 +16,7 @@ function NewCardForm({selectedBoard, addCard}) {
         // or just call fetchCards function to reload?
         event.preventDefault();
         addCard({
-            messageData: formFields.message
+            message: formFields.message
         })
 
         setFormFields({message:""});
@@ -41,12 +41,12 @@ function NewCardForm({selectedBoard, addCard}) {
         <form onSubmit={addCardonSubmit}>
             <h3>Create a New Card</h3>
             <div>
-                <label htmlFor="message"></label>
-                <input name="message" value={formFields.message} onChange={fieldsOnChange}/>
+                <label htmlFor="message">Message</label>
+                <input id="message" name="message" value={formFields.message} onChange={fieldsOnChange}/>
             </div>
             <h4>Preview:</h4>
             <p>{message}</p>
-            <input type="submit"/>
+            <input type="submit" value="Submit"/>
         </form>
     );
 }

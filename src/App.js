@@ -6,6 +6,7 @@ import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 import SelectedBoard from "./components/SelectedBoard";
 import boardData from "./data/boards.json";
+import cardData from "./data/cards.json";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -47,6 +48,20 @@ function App() {
     setBoards(newBoards);
   };
 
+  const addCard = (newCard) =>{
+    const newCardData = [...cards];
+
+    //TODO: Make an API call to add new Card
+
+    newCardData.push({
+      id: 100, //TODO: Should be generated from database
+      message: newCard.message
+    })
+
+    setCards(newCardData);
+
+  };
+
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -58,6 +73,7 @@ function App() {
         }
         <BoardList boards={boards} />
         <NewBoardForm addBoardCallBack={addBoard}/>
+        <NewCardForm />
       </main>
     </div>
   );
