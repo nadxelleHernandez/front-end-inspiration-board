@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Board from "./Board";
 import "./BoardList.css"
+import Card from 'react-bootstrap/Card';
 
 function BoardList (props) {
   const boardComponents = props.boards.map((board) => {
@@ -20,8 +21,12 @@ function BoardList (props) {
 
   return (
       <section>
-          <h2>Boards</h2>
+        <Card>
+          <Card.Header>Boards</Card.Header>
+          <Card.Body>
           <ol className="board-list">{boardComponents}</ol>
+          </Card.Body>
+        </Card>
       </section>
   );
 };
