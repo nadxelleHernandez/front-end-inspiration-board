@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "boardId": 1,
+        "message": "I love pho!!",
+        "likes": 9
+    },
+    {
+        "id": 2,
+        "boardId": 2,
+        "message": "I love bubble tea!",
+        "likes": 0
+    }
+
+]
