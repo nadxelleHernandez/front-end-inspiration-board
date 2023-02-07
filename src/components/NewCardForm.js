@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 
 
 function NewCardForm({selectedBoard, addCard}) {
@@ -41,26 +42,30 @@ function NewCardForm({selectedBoard, addCard}) {
 
   return (
     <section>
-      <h2>Create a New Card</h2>
-      <Form
-      aria-label="Create a New Card"
-      name="cardForm"
-      onSubmit={addCardonSubmit}>
-      <Form.Group>
-        <Form.Label htmlFor="message">Message</Form.Label>
-        <Form.Control
-            required
-            id="message"
-            name="message"
-            value={formFields.message}
-            onChange={fieldsOnChange}/>
-      </Form.Group>
-      <div className="form-preview">Preview:</div>
-      <p>{message}</p>
-      <Button className="submit-button" type="submit" value="Submit">
-        Submit Query
-      </Button> 
-    </Form>
+      <Card>
+        <Card.Header>Create a New Card</Card.Header>
+        <Card.Body>
+        <Form
+          aria-label="Create a New Card"
+          name="cardForm"
+          onSubmit={addCardonSubmit}>
+          <Form.Group>
+            <Form.Label htmlFor="message">Message</Form.Label>
+            <Form.Control
+                required
+                id="message"
+                name="message"
+                value={formFields.message}
+                onChange={fieldsOnChange}/>
+          </Form.Group>
+          <div className="form-preview">Preview:</div>
+          <p>{message}</p>
+          <Button className="submit-button" type="submit" value="Submit">
+            Submit Query
+          </Button> 
+        </Form>
+        </Card.Body>
+      </Card>
     </section>
   );
 }
