@@ -82,13 +82,13 @@ function NewBoardForm(props) {
               onChange={onOwnerChange} />
         </Form.Group>
 
-        <Button variant="dark" disabled={isDisabled} type="submit">
+        <Button className="submit-button" disabled={isDisabled} type="submit">
           Submit Query
         </Button>
 
         <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
       </Form>
-      <Button variant="dark" className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</Button>
+      <Button className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</Button>
     </section>
     
   );
