@@ -7,9 +7,11 @@ function BoardList (props) {
     return (
         <div key={board.id}>
             <Board
+              id={board.id}
               title={board.title}
               owner={board.owner}
               cards={board.cards}
+              onUpdateSelectedBoard={props.onUpdateSelectedBoard}
             />
         </div>
       );

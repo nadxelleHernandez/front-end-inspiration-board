@@ -63,57 +63,48 @@ function App() {
     setCards(newCardData);
 
   };
-    //should be pass down to board component, and should be trigger when use clicks a board.
-    const updateSelectedBoard = (board)=>{
-      // Need to pass {id, title, owner}
-      const newSelectedBoard = {
-        title: board.title,
-        owner: board.owner,
-      };
-
-      setSelectedBoard(newSelectedBoard);
-      //Todo: Need to update card data
-      // Make a api call to get cards belonging to this board
+  const updateSelectedBoard = (board)=>{
+    // Need to pass {id, title, owner, cards}
+    const newSelectedBoard = {
+      title: board.title,
+      owner: board.owner,
     };
 
-    // TODO: delete after we implement to board
-    const testSelectedBoard = () =>{
-      const testData ={
-        title: "yummy food",
-        owner: "Ya-Juan",
-      }
-
-      updateSelectedBoard(testData);
-    }
-
-    const updateLikeCallBack = (cardId) =>{
-
-      //Todo:Make a API call to update likes count of card
-      //Update cards State
-
-    };
-
-    const deleteCardCallBack = (cardId) =>{
-
-      //Todo:Make a API call to delete a card
-      //Update cards State
+    setSelectedBoard(newSelectedBoard);
+    //Todo: Need to update card data, we are passing in card data here :D
+    // Make a api call to get cards belonging to this board
+  };
 
 
-    }
+  const updateLikeCallBack = (cardId) =>{
+
+    //Todo:Make a API call to update likes count of card
+    //Update cards State
+
+  };
+
+  const deleteCardCallBack = (cardId) =>{
+
+    //Todo:Make a API call to delete a card
+    //Update cards State
+
+
+  }
 
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div className="Inspiration Board">
+      <header className="Inspo-Board">
+        <h1>Inspiration Board</h1>
+      </header>
       <main>
+        <BoardList boards={boards} onUpdateSelectedBoard={updateSelectedBoard}/>
+        <NewBoardForm addBoardCallBack={addBoard}/>
         <SelectedBoard board={selectedBoard}/>
-        <button onClick={testSelectedBoard}>test selcted board</button>
         {
           // NewCardForm and CardList components only get displayed
           // when there is a selected board.
           selectedBoard && [<NewCardForm addCard={addCard}/>, <CardList cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]
         }
-        <BoardList boards={boards} />
-        <NewBoardForm addBoardCallBack={addBoard}/>
       </main>
     </div>
   );
