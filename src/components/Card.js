@@ -2,7 +2,9 @@ import React from "react";
 
 
 
-function Card ({message, likesCount}) {
+function Card ({id, message, likesCount, updateLike, deleteCard}) {
+
+
 
 
     return (
@@ -10,10 +12,9 @@ function Card ({message, likesCount}) {
             <main>{message}</main>
             <div>
                 <span>{likesCount} 💖</span>
-                <button>+1</button>
-                <button>Delete</button>
+                <button onClick={()=>{updateLike(id)}}>+1</button>
+                <button onClick={()=>{deleteCard(id)}}>Delete</button>
             </div>
-
         </li>
         );
 }

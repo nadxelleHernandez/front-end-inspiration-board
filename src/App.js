@@ -86,6 +86,21 @@ function App() {
       updateSelectedBoard(testData);
     }
 
+    const updateLikeCallBack = (cardId) =>{
+
+      //Todo:Make a API call to update likes count of card
+      //Update cards State
+
+    };
+
+    const deleteCardCallBack = (cardId) =>{
+
+      //Todo:Make a API call to delete a card
+      //Update cards State
+
+
+    }
+
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -95,12 +110,10 @@ function App() {
         {
           // NewCardForm and CardList components only get displayed
           // when there is a selected board.
-          selectedBoard && [<NewCardForm addCard={addCard}/>, <CardList cards={cards}/>]
+          selectedBoard && [<NewCardForm addCard={addCard}/>, <CardList cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]
         }
         <BoardList boards={boards} />
         <NewBoardForm addBoardCallBack={addBoard}/>
-        {/* <NewCardForm addCard={addCard}/>
-        <CardList cards={cards}/> */}
       </main>
     </div>
   );

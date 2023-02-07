@@ -3,9 +3,9 @@ import Card from "./Card";
 
 
 
-function CardList ({cards}) {
+function CardList ({cards, updateLike, deleteCard}) {
     const cardcomponents = cards.map(card =>{
-        return <Card message={card.message} likesCount={card.likes} />
+        return <Card message={card.message} likesCount={card.likes} updateLike={updateLike} deleteCard={deleteCard} />
     })
 
     return (
