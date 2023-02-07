@@ -2,9 +2,10 @@ import React from "react";
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import  "./NewBoardForm.css";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function NewBoardForm(props) {
-  // todo: On submit, call "props.addBoard" function
   const [formFields, setFormFields] = useState({
     title: '',
     owner: ''
@@ -54,33 +55,40 @@ function NewBoardForm(props) {
   return (
     <section>
       <h2>Create a New Board</h2>
-      <form
+      <Form
         aria-label="Create a New Board"
         name="boardForm"
         className={classFormDisplay} 
         onSubmit={onFormSubmit}>
-        <div>
-            <label htmlFor="title">Title:</label>
-            <input
-                required
-                name="title"
-                className={`title-input ` + titleInput}
-                value={formFields.title}
-                onChange={onTitleChange} />
-        </div>
-        <div>
-            <label htmlFor="owner">Owner:</label>
-            <input
-                required
-                name="owner"
-                className={`owner-input ` + ownerInput}
-                value={formFields.owner}
-                onChange={onOwnerChange} />
-        </div>
-        <button disabled={isDisabled} type="submit">Submit Query</button>
+        <Form.Group controlId="formTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+              required
+              name="title"
+              type="title" 
+              className={`title-input ` + titleInput}
+              value={formFields.title}
+              onChange={onTitleChange}/>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formOwner">
+          <Form.Label>Owner</Form.Label>
+          <Form.Control
+              required
+              name="owner"
+              type="owner"
+              className={`owner-input ` + ownerInput}
+              value={formFields.owner}
+              onChange={onOwnerChange} />
+        </Form.Group>
+
+        <Button variant="dark" disabled={isDisabled} type="submit">
+          Submit Query
+        </Button>
+
         <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
-      </form>
-      <button className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</button>
+      </Form>
+      <Button variant="dark" className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</Button>
     </section>
     
   );
