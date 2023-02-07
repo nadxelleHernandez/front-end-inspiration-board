@@ -1,5 +1,5 @@
 import React from "react";
-// import './App.css';
+import './App.css';
 import BoardList from "./components/BoardList";
 import CardList from "./components/CardList";
 import NewBoardForm from "./components/NewBoardForm";
@@ -11,7 +11,6 @@ import { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 
 function App() {
   // Displayed by BoardList.

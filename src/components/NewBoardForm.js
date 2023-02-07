@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import  "./NewBoardForm.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 
 function NewBoardForm(props) {
   const [formFields, setFormFields] = useState({
@@ -54,41 +55,46 @@ function NewBoardForm(props) {
 
   return (
     <section>
-      <h2>Create a New Board</h2>
-      <Form
-        aria-label="Create a New Board"
-        name="boardForm"
-        className={classFormDisplay} 
-        onSubmit={onFormSubmit}>
-        <Form.Group controlId="formTitle">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-              required
-              name="title"
-              type="title" 
-              className={`title-input ` + titleInput}
-              value={formFields.title}
-              onChange={onTitleChange}/>
-        </Form.Group>
+      <Card>
+        <Card.Header>Create a New Board </Card.Header>
+        {/* <h2>Create a New Board</h2> */}
+        <Card.Body>
+          <Form
+            aria-label="Create a New Board"
+            name="boardForm"
+            className={classFormDisplay} 
+            onSubmit={onFormSubmit}>
+            <Form.Group controlId="formTitle">
+              <Form.Label>Title</Form.Label>
+              <Form.Control
+                  required
+                  name="title"
+                  type="title" 
+                  className={`title-input ` + titleInput}
+                  value={formFields.title}
+                  onChange={onTitleChange}/>
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formOwner">
-          <Form.Label>Owner</Form.Label>
-          <Form.Control
-              required
-              name="owner"
-              type="owner"
-              className={`owner-input ` + ownerInput}
-              value={formFields.owner}
-              onChange={onOwnerChange} />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formOwner">
+              <Form.Label>Owner</Form.Label>
+              <Form.Control
+                  required
+                  name="owner"
+                  type="owner"
+                  className={`owner-input ` + ownerInput}
+                  value={formFields.owner}
+                  onChange={onOwnerChange} />
+            </Form.Group>
 
-        <Button className="submit-button" disabled={isDisabled} type="submit">
-          Submit Query
-        </Button>
+            <Button className="submit-button" disabled={isDisabled} type="submit">
+              Submit Query
+            </Button>
 
-        <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
-      </Form>
-      <Button className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</Button>
+            <div className="form-preview">Preview: {formFields.title} - {formFields.owner}</div>
+          </Form>
+          <Button className="form-toggle" onClick={onToggleVisibility}>{buttonDisplayBoardForm}</Button>
+        </Card.Body>
+      </Card>
     </section>
     
   );
