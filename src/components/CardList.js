@@ -3,13 +3,16 @@ import Card from "./Card";
 
 
 
-function CardList ({cards, updateLike, deleteCard}) {
+function CardList ({boardTitle, cards, updateLike, deleteCard}) {
     const cardcomponents = cards.map(card =>{
         return <Card message={card.message} likesCount={card.likes} updateLike={updateLike} deleteCard={deleteCard} />
     })
 
     return (
-        <ul>{cardcomponents}</ul>
+        <section>
+            <h2>Cards for {boardTitle}</h2>
+            <ul>{cardcomponents}</ul>
+        </section>
     )
 }
 
