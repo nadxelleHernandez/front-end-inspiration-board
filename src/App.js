@@ -55,25 +55,52 @@ function App() {
 
     newCardData.push({
       id: 100, //TODO: Should be generated from database
-      message: newCard.message
+      message: newCard.message,
+      board_id: 2,
+      likes: 0
     })
 
     setCards(newCardData);
 
   };
+    //should be pass down to board component, and should be trigger when use clicks a board.
+    const updateSelectedBoard = (board)=>{
+      // Need to pass {id, title, owner}
+      const newSelectedBoard = {
+        title: board.title,
+        owner: board.owner,
+      };
+
+      setSelectedBoard(newSelectedBoard);
+      //Todo: Need to update card data
+      // Make a api call to get cards belonging to this board
+    };
+
+    // TODO: delete after we implement to board
+    const testSelectedBoard = () =>{
+      const testData ={
+        title: "yummy food",
+        owner: "Ya-Juan",
+      }
+
+      updateSelectedBoard(testData);
+    }
 
   return (
     <div className="App">
       <header className="App-header"></header>
       <main>
+        <SelectedBoard board={selectedBoard}/>
+        <button onClick={testSelectedBoard}>test selcted board</button>
         {
           // NewCardForm and CardList components only get displayed
           // when there is a selected board.
-          selectedBoard && [<NewCardForm />, <CardList />]
+          selectedBoard && [<NewCardForm addCard={addCard}/>, <CardList cards={cards}/>]
         }
         <BoardList boards={boards} />
         <NewBoardForm addBoardCallBack={addBoard}/>
-        <NewCardForm />
+        {/* <NewCardForm addCard={addCard}/>
+        <CardList cards={cards}/> */}
       </main>
     </div>
   );
