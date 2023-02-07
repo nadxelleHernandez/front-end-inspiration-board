@@ -1,7 +1,31 @@
+:root {
+  --button-hot-pink: #ff8dc6;
+  --button-hover: #ffb3d9;
+}
 .board-form-hidden {
   display: none
 }
 
 .error.form-control {
-  border: red solid 1px;
+  /* border: red solid 1px; */
+}
+
+.submit-button.btn.btn-primary {
+  background-color: var(--button-hot-pink);
+  border: var(--button-hot-pink);
+}
+
+.submit-button.btn.btn-primary:hover {
+  background-color: var(--button-hover);
+  border: var(--button-hover);
+}
+
+.form-toggle.btn.btn-primary {
+  background-color: var(--button-hot-pink);
+  border: var(--button-hot-pink);
+}
+
+.form-toggle.btn.btn-primary:hover {
+  background-color: var(--button-hover);
+  border: var(--button-hover);
 }
