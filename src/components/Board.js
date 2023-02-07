@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 function Board (props) {
 
   const onClickBoard = () => {
+
     const selectedBoard = {
       id: props.id,
       title: props.title,
