@@ -7,7 +7,7 @@
 }
 
 .error.form-control {
-  border: red solid 1px;
+  /* border: red solid 1px; */
 }
 
 .submit-button.btn.btn-primary {
