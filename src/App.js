@@ -8,6 +8,10 @@ import SelectedBoard from "./components/SelectedBoard";
 import boardData from "./data/boards.json";
 import cardData from "./data/cards.json";
 import { useState, useEffect } from "react";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 function App() {
   // Displayed by BoardList.
@@ -97,14 +101,21 @@ function App() {
         <h1>Inspiration Board</h1>
       </header>
       <main>
-        <BoardList boards={boards} onUpdateSelectedBoard={updateSelectedBoard}/>
-        <NewBoardForm addBoardCallBack={addBoard}/>
-        <SelectedBoard board={selectedBoard}/>
-        {
-          // NewCardForm and CardList components only get displayed
-          // when there is a selected board.
-          selectedBoard && [<NewCardForm addCard={addCard}/>, <CardList cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]
-        }
+        <Container>
+          <Row>
+            <Col sm><BoardList boards={boards} onUpdateSelectedBoard={updateSelectedBoard}/></Col>
+            <Col sm><SelectedBoard board={selectedBoard}/></Col>
+            <Col sm><NewBoardForm addBoardCallBack={addBoard}/></Col>
+          </Row>
+          <Row>
+            <Col sm={8}>
+              {selectedBoard && [<CardList cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]}
+            </Col>
+            <Col sm={4}>
+              {selectedBoard && [<NewCardForm addCard={addCard}/>]}
+            </Col>
+          </Row>
+        </Container>
       </main>
     </div>
   );
