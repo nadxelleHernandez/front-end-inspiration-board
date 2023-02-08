@@ -138,7 +138,7 @@ function App() {
         );
       });
   };
-
+  
   const deleteCardCallBack = (cardId) => {
     const endPoint = kBaseUrl + `/cards/${cardId}`;
 
@@ -161,6 +161,29 @@ function App() {
         );
       });
   };
+  const deleteBoardCallBack = (boardId) => {
+    const endPoint = kBaseUrl + `/boards/${boardId}`;
+
+    axios
+      .delete(endPoint)
+      .then((response) => {
+        console.log(response.data);
+        const newBoards = [];
+        for (let board of boards){
+          if(board.id !== boardId){
+            newBoards.push(board);
+          }
+        }
+        setCards(newBoards);
+      })
+      .catch((error) => {
+        console.log(error);
+        handleShow(
+          `Cannot delete board with id ${boardId} currently, try again later`
+        );
+      });
+  };
+
 
   return (
     <div className="Inspiration Board">
