@@ -9,7 +9,6 @@ function Board (props) {
       id: props.id,
       title: props.title,
       owner: props.owner,
-      cards: props.cards
     };
     props.onUpdateSelectedBoard(selectedBoard);
   };
@@ -25,7 +24,6 @@ Board.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
-  cards: PropTypes.array.isRequired,
 };
 
 export default Board;
