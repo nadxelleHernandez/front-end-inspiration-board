@@ -64,7 +64,7 @@ function App() {
     //TODO: Make an API call to add new Card
 
     newCardData.push({
-      id: 1, //TODO: Should be generated from database
+      id: 100, //TODO: Should be generated from database
       message: newCard.message,
       board_id: 2,
       likes: 0
@@ -112,8 +112,22 @@ function App() {
   };
 
   const deleteCardCallBack = (cardId) =>{
-    //Todo:Make a API call to delete a card
-    //Update cards State
+    const URL = 'https://adorableocelots-inspiboard-be.herokuapp.com/';
+    const endPoint = URL + `cards/${cardId}`;
+
+    axios.delete(endPoint)
+      .then((response) => {
+        const newCards = cards.data.map(card => {
+          if (cardId !== response.data.id) {
+            return card;
+          }
+        });
+  
+        setCards(newCards);
+      })
+      .catch((error) => {
+        handleShow(`Cannot delete card with id ${cardId} currently, try again later`);
+      });
   }
 
   return (
