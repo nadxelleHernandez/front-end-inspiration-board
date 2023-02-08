@@ -40,15 +40,15 @@ function NewBoardForm(props) {
   const onFormSubmit = (event) => {
     event.preventDefault();
 
-        props.addBoardCallBack({
-            title: formFields.title,
-            owner: formFields.owner
-        });
+    props.addBoardCallBack({
+      title: formFields.title,
+      owner: formFields.owner
+    });
 
-        setFormFields({
-            title: '',
-            owner: '',
-        });
+    setFormFields({
+      title: '',
+      owner: '',
+    });
   };
 
   const onToggleVisibility = () => {

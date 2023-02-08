@@ -22,5 +22,4 @@ function NoteCard ({id, message, likesCount, updateLike, deleteCard}) {
         );
 }
 
-
 export default NoteCard;

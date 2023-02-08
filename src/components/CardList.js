@@ -7,7 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CardList ({boardTitle, cards, updateLike, deleteCard}) {
     const cardComponents = cards.map(card =>{
-        return <NoteCard message={card.message} likesCount={card.likes} updateLike={updateLike} deleteCard={deleteCard} />
+        return <NoteCard 
+                id={card.id}
+                message={card.message}
+                likesCount={card.likes}
+                updateLike={updateLike}
+                deleteCard={deleteCard}/>
     })
 
     return (
