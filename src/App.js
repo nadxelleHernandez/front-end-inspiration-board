@@ -20,7 +20,7 @@ function App() {
   // Displayed by BoardList.
   // todo: Make an API call to fetch boards after page load.
   // Creating a new board also updates this state.
-  const [boards, setBoards] = useState(boardData);
+  const [boards, setBoards] = useState([]);
 
   // Updated when user selects a board
   // todo: Should this contain the cards for the board or use separate state for cards?
@@ -38,13 +38,14 @@ function App() {
     return axios
     .get(`${kBaseUrl}/boards`)
     .then((response) => {
-      console.log(response.data["data"]["title"]);
+      //console.log(response.data["data"]);
+      setBoards(response.data["data"]);
     })
     .catch((error)=> {
       console.log(error);
     });
   };
-  useEffect(() => fetchBoards(), []);
+  useEffect(() => {fetchBoards()}, []);
 
   const fetchCards = (boardId) => {
     // todo: Make API call to get all cards belonging to the chosen board
