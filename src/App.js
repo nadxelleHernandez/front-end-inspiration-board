@@ -36,7 +36,7 @@ function App() {
   // Displayed by BoardList.
   // todo: Make an API call to fetch boards after page load.
   // Creating a new board also updates this state.
-  const [boards, setBoards] = useState(boardData);
+  const [boards, setBoards] = useState([]);
 
   // Updated when user selects a board
   // todo: Should this contain the cards for the board or use separate state for cards?
@@ -52,8 +52,17 @@ function App() {
   const fetchBoards = () => {
     // todo: Make an API call to fetch boards
     // and update boards state
+    return axios
+    .get(`${kBaseUrl}/boards`)
+    .then((response) => {
+      //console.log(response.data["data"]);
+      setBoards(response.data["data"]);
+    })
+    .catch((error)=> {
+      console.log(error);
+    });
   };
-  useEffect(() => fetchBoards(), []);
+  useEffect(() => {fetchBoards()}, []);
 
   const fetchCards = (boardId) => {
     // todo: Make API call to get all cards belonging to the chosen board
@@ -63,18 +72,20 @@ function App() {
   const addBoard = (newBoard) => {
     // TODO: make API call to add board
     const newBoards = [...boards];
-
     // TODO: Remove when accessing API
-    const nextId = Math.max(...newBoards.map((board) => board.id)) + 1;
-
-    newBoards.push({
-      id: nextId,
-      title: newBoard.title,
-      owner: newBoard.owner,
-      cards: [], // TODO: might keep?
+    //const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
+    return axios
+    .post(`${kBaseUrl}/boards`, newBoard)
+    .then((response) =>{
+      let newBoardData = {...response.data["data"]}
+      console.log(response.data)
+      newBoards.push(newBoardData)
+      setBoards(newBoards);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    setBoards(newBoards);
   };
 
   const addCard = (newCard) => {
@@ -113,7 +124,7 @@ function App() {
       .then((response) => {
         const cardLikes = response.data.data.likes;
         const newCards = cards.map((card) => {
-          if (cardId === response.data.data.id) {
+          if (cardId === card.id) {
             return { ...card, likes: cardLikes };
           } else {
             return card;
