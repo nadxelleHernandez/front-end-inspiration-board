@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+import "./App.css";
 import BoardList from "./components/BoardList";
 import CardList from "./components/CardList";
 import NewBoardForm from "./components/NewBoardForm";
@@ -8,9 +8,28 @@ import SelectedBoard from "./components/SelectedBoard";
 import boardData from "./data/boards.json";
 import cardData from "./data/cards.json";
 import { useState, useEffect } from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import axios from "axios";
+
+const kBaseUrl = "https://adorableocelots-inspiboard-be.herokuapp.com";
+
+const createCardAPI = (card) => {
+  return axios
+    .post(`${kBaseUrl}/boards/${card.board_id}/cards`, card)
+    .then((response) => {
+      console.log(response.data.statuscode);
+      console.log(response.data.message);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
 
 function App() {
   // Displayed by BoardList.
@@ -39,34 +58,28 @@ function App() {
     const newBoards = [...boards];
 
     // TODO: Remove when accessing API
-    const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
+    const nextId = Math.max(...newBoards.map((board) => board.id)) + 1;
 
     newBoards.push({
-        id: nextId,
-        title: newBoard.title,
-        owner: newBoard.owner,
-        cards: [], // TODO: might keep? 
+      id: nextId,
+      title: newBoard.title,
+      owner: newBoard.owner,
+      cards: [], // TODO: might keep?
     });
 
     setBoards(newBoards);
   };
 
-  const addCard = (newCard) =>{
+  const addCard = (newCard) => {
     const newCardData = [...cards];
-
-    //TODO: Make an API call to add new Card
-
-    newCardData.push({
-      id: 100, //TODO: Should be generated from database
-      message: newCard.message,
-      board_id: 2,
-      likes: 0
-    })
-
-    setCards(newCardData);
-
+    createCardAPI(newCard).then((responseData) => {
+      newCard = responseData.data;
+      newCardData.push(newCard);
+      setCards(newCardData);
+    });
   };
-  const updateSelectedBoard = (board)=>{
+
+  const updateSelectedBoard = (board) => {
     // Need to pass {id, title, owner, cards}
     const newSelectedBoard = {
       title: board.title,
@@ -80,21 +93,15 @@ function App() {
     setCards(board.cards);
   };
 
-
-  const updateLikeCallBack = (cardId) =>{
-
+  const updateLikeCallBack = (cardId) => {
     //Todo:Make a API call to update likes count of card
     //Update cards State
-
   };
 
-  const deleteCardCallBack = (cardId) =>{
-
+  const deleteCardCallBack = (cardId) => {
     //Todo:Make a API call to delete a card
     //Update cards State
-
-
-  }
+  };
 
   return (
     <div className="Inspiration Board">
@@ -104,16 +111,34 @@ function App() {
       <main>
         <Container fluid>
           <Row>
-            <Col sm><BoardList boards={boards} onUpdateSelectedBoard={updateSelectedBoard}/></Col>
-            <Col sm><SelectedBoard board={selectedBoard}/></Col>
-            <Col sm><NewBoardForm addBoardCallBack={addBoard}/></Col>
+            <Col sm>
+              <BoardList
+                boards={boards}
+                onUpdateSelectedBoard={updateSelectedBoard}
+              />
+            </Col>
+            <Col sm>
+              <SelectedBoard board={selectedBoard} />
+            </Col>
+            <Col sm>
+              <NewBoardForm addBoardCallBack={addBoard} />
+            </Col>
           </Row>
           <Row>
             <Col sm={8}>
-              {selectedBoard && [<CardList boardTitle={selectedBoard.title} cards={cards} updateLike={updateLikeCallBack} deleteCard={deleteCardCallBack}/>]}
+              {selectedBoard && [
+                <CardList
+                  boardTitle={selectedBoard.title}
+                  cards={cards}
+                  updateLike={updateLikeCallBack}
+                  deleteCard={deleteCardCallBack}
+                />,
+              ]}
             </Col>
             <Col sm={4}>
-              {selectedBoard && [<NewCardForm addCard={addCard}/>]}
+              {selectedBoard && [
+                <NewCardForm addCard={addCard} selectedBoard={selectedBoard} />,
+              ]}
             </Col>
           </Row>
         </Container>
