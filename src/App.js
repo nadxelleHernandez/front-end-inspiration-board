@@ -7,6 +7,7 @@ import NewCardForm from "./components/NewCardForm";
 import SelectedBoard from "./components/SelectedBoard";
 import boardData from "./data/boards.json";
 import cardData from "./data/cards.json";
+import ErrorModal from "./components/ErrorModal";
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -41,6 +42,12 @@ function App() {
   // todo: Should this contain the cards for the board or use separate state for cards?
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [cards, setCards] = useState();
+
+  const [showModal, setShowModal] = useState({ show: false, message: "" });
+
+  const handleClose = () => setShowModal({ show: false, message: "" });
+  const handleShow = (errorMessage) =>
+    setShowModal({ show: true, message: errorMessage });
 
   const fetchBoards = () => {
     // todo: Make an API call to fetch boards
@@ -78,7 +85,6 @@ function App() {
       setCards(newCardData);
     });
   };
-
   const updateSelectedBoard = (board) => {
     // Need to pass {id, title, owner, cards}
     const newSelectedBoard = {
@@ -94,13 +100,51 @@ function App() {
   };
 
   const updateLikeCallBack = (cardId) => {
-    //Todo:Make a API call to update likes count of card
-    //Update cards State
+    const URL = "https://adorableocelots-inspiboard-be.herokuapp.com/";
+    const endPoint = URL + `cards/${cardId}/add-likes`;
+
+    axios
+      .patch(endPoint)
+      .then((response) => {
+        const cardLikes = response.data.likes;
+
+        const newCards = cards.data.map((card) => {
+          if (cardId === response.data.id) {
+            return { ...card, likes: cardLikes };
+          } else {
+            return card;
+          }
+        });
+
+        setCards(newCards);
+      })
+      .catch((error) => {
+        handleShow(
+          `Cannot like card with id ${cardId} currently, try again later`
+        );
+      });
   };
 
   const deleteCardCallBack = (cardId) => {
-    //Todo:Make a API call to delete a card
-    //Update cards State
+    const URL = "https://adorableocelots-inspiboard-be.herokuapp.com/";
+    const endPoint = URL + `cards/${cardId}`;
+
+    axios
+      .delete(endPoint)
+      .then((response) => {
+        const newCards = cards.data.map((card) => {
+          if (cardId !== response.data.id) {
+            return card;
+          }
+        });
+
+        setCards(newCards);
+      })
+      .catch((error) => {
+        handleShow(
+          `Cannot delete card with id ${cardId} currently, try again later`
+        );
+      });
   };
 
   return (
@@ -142,6 +186,7 @@ function App() {
             </Col>
           </Row>
         </Container>
+        <ErrorModal showModal={showModal} onHandleClose={handleClose} />
       </main>
     </div>
   );
