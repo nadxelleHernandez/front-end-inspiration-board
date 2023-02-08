@@ -11,6 +11,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
+import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPalette } from "@fortawesome/free-solid-svg-icons";
 
 const kBaseUrl = "https://adorableocelots-inspiboard-be.herokuapp.com";
 
@@ -161,7 +164,9 @@ function App() {
   return (
     <div className="Inspiration Board">
       <header className="Inspo-Board">
-        <h1>Inspiration Board</h1>
+        <Card className="inspo-title">
+          <Card.Body><h1><FontAwesomeIcon icon={faPalette}/> Inspiration Board</h1></Card.Body>
+        </Card>
       </header>
       <main>
         <Container fluid>
