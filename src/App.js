@@ -80,14 +80,20 @@ function App() {
   const addCard = (newCard) => {
     const newCardData = [...cards];
     createCardAPI(newCard).then((responseData) => {
-      newCard = responseData.data;
-      newCardData.push(newCard);
-      setCards(newCardData);
+      if (responseData.statuscode !== 201) {
+        // there was an error
+        handleShow(`Error creating the card: ${responseData.message}`);
+      } else {
+        newCard = responseData.data;
+        newCardData.push(newCard);
+        setCards(newCardData);
+      }
     });
   };
   const updateSelectedBoard = (board) => {
     // Need to pass {id, title, owner, cards}
     const newSelectedBoard = {
+      id: board.id,
       title: board.title,
       owner: board.owner,
     };
@@ -100,16 +106,14 @@ function App() {
   };
 
   const updateLikeCallBack = (cardId) => {
-    const URL = "https://adorableocelots-inspiboard-be.herokuapp.com/";
-    const endPoint = URL + `cards/${cardId}/add-likes`;
+    const endPoint = kBaseUrl + `/cards/${cardId}/add-likes`;
 
     axios
       .patch(endPoint)
       .then((response) => {
-        const cardLikes = response.data.likes;
-
-        const newCards = cards.data.map((card) => {
-          if (cardId === response.data.id) {
+        const cardLikes = response.data.data.likes;
+        const newCards = cards.map((card) => {
+          if (cardId === response.data.data.id) {
             return { ...card, likes: cardLikes };
           } else {
             return card;
@@ -119,6 +123,7 @@ function App() {
         setCards(newCards);
       })
       .catch((error) => {
+        console.log(error);
         handleShow(
           `Cannot like card with id ${cardId} currently, try again later`
         );
@@ -126,13 +131,13 @@ function App() {
   };
 
   const deleteCardCallBack = (cardId) => {
-    const URL = "https://adorableocelots-inspiboard-be.herokuapp.com/";
-    const endPoint = URL + `cards/${cardId}`;
+    const endPoint = kBaseUrl + `/cards/${cardId}`;
 
     axios
       .delete(endPoint)
       .then((response) => {
-        const newCards = cards.data.map((card) => {
+        console.log(response.data);
+        const newCards = cards.map((card) => {
           if (cardId !== response.data.id) {
             return card;
           }
@@ -141,6 +146,7 @@ function App() {
         setCards(newCards);
       })
       .catch((error) => {
+        console.log(error);
         handleShow(
           `Cannot delete card with id ${cardId} currently, try again later`
         );
