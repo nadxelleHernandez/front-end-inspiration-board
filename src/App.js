@@ -5,8 +5,6 @@ import CardList from "./components/CardList";
 import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 import SelectedBoard from "./components/SelectedBoard";
-import boardData from "./data/boards.json";
-import cardData from "./data/cards.json";
 import ErrorModal from "./components/ErrorModal";
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
@@ -148,12 +146,12 @@ function App() {
       .delete(endPoint)
       .then((response) => {
         console.log(response.data);
-        const newCards = cards.map((card) => {
-          if (cardId !== response.data.id) {
-            return card;
+        const newCards = [];
+        for (let card of cards){
+          if(card.id !== cardId){
+            newCards.push(card);
           }
-        });
-
+        }
         setCards(newCards);
       })
       .catch((error) => {
