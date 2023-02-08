@@ -14,7 +14,6 @@ function BoardList (props) {
               id={board.id}
               title={board.title}
               owner={board.owner}
-              cards={board.cards}
               onUpdateSelectedBoard={props.onUpdateSelectedBoard}
             />
         </div>
@@ -38,7 +37,6 @@ BoardList.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       owner: PropTypes.string.isRequired,
-      cards: PropTypes.array.isRequired,
   }))
 };
 
