@@ -29,6 +29,14 @@ function App() {
   const fetchBoards = () => {
     // todo: Make an API call to fetch boards
     // and update boards state
+    return axios
+    .get(`${kBaseUrl}/boards`)
+    .then((response) => {
+      console.log(response.data["data"]["title"]);
+    })
+    .catch((error)=> {
+      console.log(error);
+    });
   };
   useEffect(() => fetchBoards(), []);
 
