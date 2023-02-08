@@ -11,7 +11,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
 
@@ -137,7 +137,7 @@ function App() {
         );
       });
   };
-  
+
   const deleteCardCallBack = (cardId) => {
     const endPoint = kBaseUrl + `/cards/${cardId}`;
 
@@ -168,8 +168,8 @@ function App() {
       .then((response) => {
         console.log(response.data);
         const newBoards = [];
-        for (let board of boards){
-          if(board.id !== boardId){
+        for (let board of boards) {
+          if (board.id !== boardId) {
             newBoards.push(board);
           }
         }
@@ -185,12 +185,15 @@ function App() {
       });
   };
 
-
   return (
     <div className="Inspiration Board">
       <header className="Inspo-Board">
         <Card className="inspo-title">
-          <Card.Body><h1><FontAwesomeIcon icon={faPalette}/> Inspiration Board</h1></Card.Body>
+          <Card.Body>
+            <h1>
+              <FontAwesomeIcon icon={faPalette} /> Inspiration Board
+            </h1>
+          </Card.Body>
         </Card>
       </header>
       <main>
@@ -203,8 +206,10 @@ function App() {
               />
             </Col>
             <Col sm>
-              <SelectedBoard board={selectedBoard}
-              deleteBoard={deleteBoardCallBack} />
+              <SelectedBoard
+                board={selectedBoard}
+                deleteBoard={deleteBoardCallBack}
+              />
             </Col>
             <Col sm>
               <NewBoardForm addBoardCallBack={addBoard} />
