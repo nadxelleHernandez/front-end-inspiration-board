@@ -78,24 +78,35 @@ function App() {
   useEffect(() => {
     fetchBoards();
   }, []);
+  
+  const verifyBoardTitle = (title)=>{
+    for (let board of boards){
+      if (board.title === title){
+        handleShow(`${title} board is alreay exist. Please use other name.`)
+        return false;
+      }
+    }
+    return true;
+  }
 
   const addBoard = (newBoard) => {
-    // TODO: make API call to add board
-    const newBoards = [...boards];
-    // TODO: Remove when accessing API
-    //const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
-    return axios
-      .post(`${kBaseUrl}/boards`, newBoard)
-      .then((response) => {
-        let newBoardData = { ...response.data["data"] };
-        console.log(response.data);
-        newBoards.push(newBoardData);
-        setBoards(newBoards);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const verificationResult = verifyBoardTitle(newBoard.title);
+    if (verificationResult){
+      const newBoards = [...boards];
+      // TODO: Remove when accessing API
+      //const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
+      return axios
+        .post(`${kBaseUrl}/boards`, newBoard)
+        .then((response) => {
+          let newBoardData = { ...response.data["data"] };
+          console.log(response.data);
+          newBoards.push(newBoardData);
+          setBoards(newBoards);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }};
 
   const addCard = (newCard) => {
     const newCardData = [...cards];
@@ -215,7 +226,7 @@ function App() {
               deleteBoard={deleteBoardCallBack} />
             </Col>
             <Col sm>
-              <NewBoardForm addBoardCallBack={addBoard} />
+              <NewBoardForm addBoardCallBack={addBoard}/>
             </Col>
           </Row>
           <Row>
