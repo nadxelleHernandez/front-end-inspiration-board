@@ -33,6 +33,18 @@ const createCardAPI = (card) => {
     });
 };
 
+const fetchCardsAPI = (boardId) =>{
+    return axios
+      .get(`${kBaseUrl}/boards/${boardId}`)
+      .then((response) =>{
+        console.log(response.data)
+        return response.data;
+      })
+      .catch((error)=> {
+        console.log(error.response.data)
+      });
+}
+
 function App() {
   // Displayed by BoardList.
   // todo: Make an API call to fetch boards after page load.
@@ -42,7 +54,7 @@ function App() {
   // Updated when user selects a board
   // todo: Should this contain the cards for the board or use separate state for cards?
   const [selectedBoard, setSelectedBoard] = useState(null);
-  const [cards, setCards] = useState();
+  const [cards, setCards] = useState([]);
 
   const [showModal, setShowModal] = useState({ show: false, message: "" });
 
@@ -99,18 +111,14 @@ function App() {
     });
   };
   const updateSelectedBoard = (board) => {
-    // Need to pass {id, title, owner, cards}
+    // Need to pass {id, title, owner}
     const newSelectedBoard = {
       id: board.id,
       title: board.title,
       owner: board.owner,
     };
-
     setSelectedBoard(newSelectedBoard);
-
-    //Todo: Need to update card data, we are passing in card data here :D
-    // Make a api call to get cards belonging to this board
-    setCards(board.cards);
+    fetchCardsAPI(board.id).then(boardData =>{setCards(boardData.cards)})
   };
 
   const updateLikeCallBack = (cardId) => {
