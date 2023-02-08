@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card';
+import NoteCard from './Card';
 import CardList from './CardList';
 import SelectedBoard from './SelectedBoard';
 import "@testing-library/jest-dom/extend-expect";
@@ -62,7 +62,7 @@ describe("CardsList Component", () =>{
 
 describe("Card Component", () =>{
     beforeEach(() =>{
-        render(<Card message={musicCards[0].message} likesCount={musicCards[0].likes}/>);
+        render(<NoteCard message={musicCards[0].message} likesCount={musicCards[0].likes}/>);
     });
 
 

@@ -5,6 +5,8 @@ import  "./NewBoardForm.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 
 function NewBoardForm(props) {
   const [formFields, setFormFields] = useState({
@@ -56,7 +58,7 @@ function NewBoardForm(props) {
   return (
     <section>
       <Card>
-        <Card.Header>Create a New Board </Card.Header>
+        <Card.Header><FontAwesomeIcon icon={faClipboard}/> Create a New Board </Card.Header>
         {/* <h2>Create a New Board</h2> */}
         <Card.Body>
           <Form

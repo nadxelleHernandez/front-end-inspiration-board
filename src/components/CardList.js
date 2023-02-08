@@ -1,11 +1,13 @@
 import React from "react";
-import Card from "./Card";
-
+import NoteCard from "./Card";
+import Card from 'react-bootstrap/Card';
+import { faNoteSticky } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 function CardList ({boardTitle, cards, updateLike, deleteCard}) {
-    const cardcomponents = cards.map(card =>{
-        return <Card 
+    const cardComponents = cards.map(card =>{
+        return <NoteCard 
                 id={card.id}
                 message={card.message}
                 likesCount={card.likes}
@@ -15,8 +17,12 @@ function CardList ({boardTitle, cards, updateLike, deleteCard}) {
 
     return (
         <section>
-            <h2>Cards for {boardTitle}</h2>
-            <ul>{cardcomponents}</ul>
+            <Card>
+                <Card.Header><FontAwesomeIcon icon={faNoteSticky}/> Cards for <span className="font-italic">{boardTitle}</span></Card.Header>
+                <Card.Body className="d-flex flex-wrap">
+                    {cardComponents}
+                </Card.Body>
+            </Card>
         </section>
     )
 }
