@@ -124,7 +124,7 @@ function App() {
       .then((response) => {
         const cardLikes = response.data.data.likes;
         const newCards = cards.map((card) => {
-          if (cardId === response.data.data.id) {
+          if (cardId === card.id) {
             return { ...card, likes: cardLikes };
           } else {
             return card;
