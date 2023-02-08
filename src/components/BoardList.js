@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Board from "./Board";
 import "./BoardList.css"
 import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 
 function BoardList (props) {
   const boardComponents = props.boards.map((board) => {
@@ -22,7 +24,7 @@ function BoardList (props) {
   return (
       <section>
         <Card>
-          <Card.Header>Boards</Card.Header>
+          <Card.Header><FontAwesomeIcon icon={faFolderOpen}/> Boards</Card.Header>
           <Card.Body>
           <ol className="board-list">{boardComponents}</ol>
           </Card.Body>

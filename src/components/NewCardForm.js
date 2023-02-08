@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 
 function NewCardForm({selectedBoard, addCard}) {
@@ -43,7 +45,7 @@ function NewCardForm({selectedBoard, addCard}) {
   return (
     <section>
       <Card>
-        <Card.Header>Create a New Card</Card.Header>
+        <Card.Header><FontAwesomeIcon icon={faPenToSquare}/> Create a New Card</Card.Header>
         <Card.Body>
         <Form
           aria-label="Create a New Card"

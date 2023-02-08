@@ -9,4 +9,20 @@ body {
 
 .card {
   opacity: .97;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.card.note-card {
+  width: 10rem;
+  height: 14rem;
+  margin: 4px;
+}
+
+.note-card .card-body {
+  background-color: hsl(303, 54%, 93%);
+}
+
+.note-card .card-footer {
+  background-color: hsl(313, 100%, 98%);
 }
