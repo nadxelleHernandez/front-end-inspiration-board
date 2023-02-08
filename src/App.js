@@ -123,7 +123,7 @@ function App() {
         setCards(newCards);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
         handleShow(
           `Cannot like card with id ${cardId} currently, try again later`
         );
