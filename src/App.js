@@ -173,7 +173,9 @@ function App() {
             newBoards.push(board);
           }
         }
-        setCards(newBoards);
+        setBoards(newBoards);
+        setCards();
+        setSelectedBoard(null);
       })
       .catch((error) => {
         console.log(error);
@@ -201,7 +203,8 @@ function App() {
               />
             </Col>
             <Col sm>
-              <SelectedBoard board={selectedBoard} />
+              <SelectedBoard board={selectedBoard}
+              deleteBoard={deleteBoardCallBack} />
             </Col>
             <Col sm>
               <NewBoardForm addBoardCallBack={addBoard} />
