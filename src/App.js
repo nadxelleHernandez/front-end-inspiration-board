@@ -11,6 +11,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
+import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPalette } from "@fortawesome/free-solid-svg-icons";
 
 const kBaseUrl = "https://adorableocelots-inspiboard-be.herokuapp.com";
 
@@ -51,21 +54,18 @@ function App() {
     // todo: Make an API call to fetch boards
     // and update boards state
     return axios
-    .get(`${kBaseUrl}/boards`)
-    .then((response) => {
-      //console.log(response.data["data"]);
-      setBoards(response.data["data"]);
-    })
-    .catch((error)=> {
-      console.log(error);
-    });
+      .get(`${kBaseUrl}/boards`)
+      .then((response) => {
+        //console.log(response.data["data"]);
+        setBoards(response.data["data"]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  useEffect(() => {fetchBoards()}, []);
-
-  const fetchCards = (boardId) => {
-    // todo: Make API call to get all cards belonging to the chosen board
-    // Then update selectedBoard state
-  };
+  useEffect(() => {
+    fetchBoards();
+  }, []);
 
   const addBoard = (newBoard) => {
     // TODO: make API call to add board
@@ -73,17 +73,16 @@ function App() {
     // TODO: Remove when accessing API
     //const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
     return axios
-    .post(`${kBaseUrl}/boards`, newBoard)
-    .then((response) =>{
-      let newBoardData = {...response.data["data"]}
-      console.log(response.data)
-      newBoards.push(newBoardData)
-      setBoards(newBoards);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
+      .post(`${kBaseUrl}/boards`, newBoard)
+      .then((response) => {
+        let newBoardData = { ...response.data["data"] };
+        console.log(response.data);
+        newBoards.push(newBoardData);
+        setBoards(newBoards);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const addCard = (newCard) => {
@@ -147,8 +146,8 @@ function App() {
       .then((response) => {
         console.log(response.data);
         const newCards = [];
-        for (let card of cards){
-          if(card.id !== cardId){
+        for (let card of cards) {
+          if (card.id !== cardId) {
             newCards.push(card);
           }
         }
@@ -188,7 +187,9 @@ function App() {
   return (
     <div className="Inspiration Board">
       <header className="Inspo-Board">
-        <h1>Inspiration Board</h1>
+        <Card className="inspo-title">
+          <Card.Body><h1><FontAwesomeIcon icon={faPalette}/> Inspiration Board</h1></Card.Body>
+        </Card>
       </header>
       <main>
         <Container fluid>
