@@ -56,7 +56,7 @@ function NewBoardForm(props) {
   return (
     <section>
       <Card>
-        <Card.Header>Create a New Board </Card.Header>
+        <Card.Header>💗Create a New Board💗</Card.Header>
         {/* <h2>Create a New Board</h2> */}
         <Card.Body>
           <Form

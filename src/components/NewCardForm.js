@@ -43,7 +43,7 @@ function NewCardForm({selectedBoard, addCard}) {
   return (
     <section>
       <Card>
-        <Card.Header>Create a New Card</Card.Header>
+        <Card.Header>💗Create a New Card💗</Card.Header>
         <Card.Body>
         <Form
           aria-label="Create a New Card"

@@ -22,7 +22,7 @@ function BoardList (props) {
   return (
       <section>
         <Card>
-          <Card.Header>Boards</Card.Header>
+          <Card.Header>💗Boards💗</Card.Header>
           <Card.Body>
           <ol className="board-list">{boardComponents}</ol>
           </Card.Body>
