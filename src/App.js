@@ -11,6 +11,9 @@ import { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from "axios";
+
+const kBaseUrl = "https://adorableocelots-inspiboard-be.herokuapp.com";
 
 function App() {
   // Displayed by BoardList.
@@ -37,18 +40,20 @@ function App() {
   const addBoard = (newBoard) => {
     // TODO: make API call to add board
     const newBoards = [...boards];
-
     // TODO: Remove when accessing API
-    const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
-
-    newBoards.push({
-        id: nextId,
-        title: newBoard.title,
-        owner: newBoard.owner,
-        cards: [], // TODO: might keep? 
+    //const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
+    return axios
+    .post(`${kBaseUrl}/boards`, newBoard)
+    .then((response) =>{
+      let newBoardData = {...response.data["data"]}
+      console.log(response.data)
+      newBoards.push(newBoardData)
+      setBoards(newBoards);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    setBoards(newBoards);
   };
 
   const addCard = (newCard) =>{
