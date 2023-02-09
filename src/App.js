@@ -21,8 +21,6 @@ const createCardAPI = (card) => {
   return axios
     .post(`${kBaseUrl}/boards/${card.board_id}/cards`, card)
     .then((response) => {
-      console.log(response.data.statuscode);
-      console.log(response.data.message);
       return response.data;
     })
     .catch((error) => {
@@ -37,7 +35,6 @@ const fetchCardsAPI = (boardId) =>{
     return axios
       .get(`${kBaseUrl}/boards/${boardId}`)
       .then((response) =>{
-        console.log(response.data)
         return response.data;
       })
       .catch((error)=> {
@@ -68,7 +65,6 @@ function App() {
     return axios
       .get(`${kBaseUrl}/boards`)
       .then((response) => {
-        //console.log(response.data["data"]);
         setBoards(response.data["data"]);
       })
       .catch((error) => {
@@ -92,14 +88,11 @@ function App() {
   const addBoard = (newBoard) => {
     const verificationResult = verifyBoardTitle(newBoard.title);
     if (verificationResult){
-      const newBoards = [...boards];
-      // TODO: Remove when accessing API
-      //const nextId = Math.max(...newBoards.map(board => board.id)) + 1;
       return axios
         .post(`${kBaseUrl}/boards`, newBoard)
         .then((response) => {
           let newBoardData = { ...response.data["data"] };
-          console.log(response.data);
+          const newBoards = [...boards];
           newBoards.push(newBoardData);
           setBoards(newBoards);
         })
@@ -163,7 +156,6 @@ function App() {
     axios
       .delete(endPoint)
       .then((response) => {
-        console.log(response.data);
         const newCards = [];
         for (let card of cards) {
           if (card.id !== cardId) {
@@ -185,7 +177,6 @@ function App() {
     axios
       .delete(endPoint)
       .then((response) => {
-        console.log(response.data);
         const newBoards = [];
         for (let board of boards){
           if(board.id !== boardId){
