@@ -3,13 +3,13 @@ import NoteCard from "./Card";
 import Card from 'react-bootstrap/Card';
 import { faNoteSticky } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import Form from 'react-bootstrap/Form';
 import "./CardList.css"
 
 
 function CardList ({boardTitle, cards, updateLike, deleteCard, onHandleSortCards}) {
     const sortMethods = {
+        none: { method: "" },
         id: { method: (a, b) => (a.id-b.id) },
         alphabetically: { method: (a, b) => (a.message.localeCompare(b.message)) },
         likes: { method: (a, b) => (a.likes-b.likes) }
@@ -31,11 +31,12 @@ function CardList ({boardTitle, cards, updateLike, deleteCard, onHandleSortCards
                     <div className="cardlist-title">
                         <FontAwesomeIcon icon={faNoteSticky}/> Cards for <span className="font-italic">{boardTitle}</span>
                     </div>
-                    <DropdownButton id="dropdown-basic-button" title="Sort by">
-                        <Dropdown.Item onClick={(e) => onHandleSortCards(sortMethods.id.method)}>ID</Dropdown.Item>
-                        <Dropdown.Item onClick={(e) => onHandleSortCards(sortMethods.alphabetically.method)}>A-Z</Dropdown.Item>
-                        <Dropdown.Item onClick={(e) => onHandleSortCards(sortMethods.likes.method)}>Likes</Dropdown.Item>
-                    </DropdownButton>
+                    <Form.Select onChange={(e) => onHandleSortCards(sortMethods[e.target.value].method)} aria-label="Default select example">
+                        <option className="option" value="none">Sort Cards by</option>
+                        <option className="option" value="id">ID</option>
+                        <option className="option" value="alphabetically">A-Z</option>
+                        <option className="option" value="likes">Likes</option>
+                    </Form.Select>
                 </Card.Header>
                 <Card.Body className="d-flex flex-wrap">
                     {cardComponents}

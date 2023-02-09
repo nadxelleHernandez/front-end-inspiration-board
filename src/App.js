@@ -185,6 +185,9 @@ function App() {
   };
 
   const handleSortCards = (sortFunc) => {
+    if (sortFunc === "") {
+      return
+    }
     const newCards = [...cards];
     newCards.sort(sortFunc);
     setCards(newCards);
