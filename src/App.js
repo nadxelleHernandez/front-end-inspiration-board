@@ -47,6 +47,7 @@ function App() {
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [cards, setCards] = useState([]);
   const [showModal, setShowModal] = useState({ show: false, message: "" });
+  const [sortCardsValue, setSortCardsValue] = useState("");
 
   const handleClose = () => setShowModal({ show: false, message: "" });
   const handleShow = (errorMessage) =>
@@ -60,6 +61,7 @@ function App() {
       })
       .catch((error) => {
         console.log(error);
+        handleShow(`Cannot fetch the Boards at this time. Try again later`);
       });
   };
   useEffect(() => {
@@ -89,6 +91,7 @@ function App() {
         })
         .catch((error) => {
           console.log(error);
+          handleShow(`Cannot add a Board at this time. Try again later.`);
         });
   }};
 
@@ -100,10 +103,16 @@ function App() {
       } else {
         newCard = responseData.data;
         newCardData.push(newCard);
+
+        if (sortCardsValue !== "none") {
+          newCardData.sort(sortMethods[sortCardsValue].method)
+        }
         setCards(newCardData);
+
       }
     });
   };
+
   const updateSelectedBoard = (board) => {
     const newSelectedBoard = {
       id: board.id,
@@ -112,6 +121,7 @@ function App() {
     };
     setSelectedBoard(newSelectedBoard);
     fetchCardsAPI(board.id).then(boardData =>{setCards(boardData.cards)})
+    setSortCardsValue("none")
   };
 
   const updateLikeCallBack = (cardId) => {
@@ -129,6 +139,9 @@ function App() {
           }
         });
 
+        if (sortCardsValue === "likes") {
+          newCards.sort(sortMethods[sortCardsValue].method)
+        }
         setCards(newCards);
       })
       .catch((error) => {
@@ -184,12 +197,20 @@ function App() {
       });
   };
 
-  const handleSortCards = (sortFunc) => {
-    if (sortFunc === "") {
+  const sortMethods = {
+    none: { method: "" },
+    id: { method: (a, b) => (a.id-b.id) },
+    alphabetically: { method: (a, b) => (a.message.localeCompare(b.message)) },
+    likes: { method: (a, b) => (a.likes-b.likes) }
+  };
+
+  const handleSortCards = (sortBy) => {
+    setSortCardsValue(sortBy);
+    if (sortBy === "none") {
       return
     }
     const newCards = [...cards];
-    newCards.sort(sortFunc);
+    newCards.sort(sortMethods[sortBy].method);
     setCards(newCards);
   };
 
@@ -232,6 +253,7 @@ function App() {
                   updateLike={updateLikeCallBack}
                   deleteCard={deleteCardCallBack}
                   onHandleSortCards={handleSortCards}
+                  sortCardsValue={sortCardsValue}
                 />,
               ]}
             </Col>
