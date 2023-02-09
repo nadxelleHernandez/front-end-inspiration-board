@@ -82,7 +82,7 @@ function App() {
   const verifyBoardTitle = (title)=>{
     for (let board of boards){
       if (board.title === title){
-        handleShow(`${title} board is alreay exist. Please use other name.`)
+        handleShow(`A board named '${title}' already exists. Please choose a different name.`);
         return false;
       }
     }
@@ -193,7 +193,7 @@ function App() {
           }
         }
         setBoards(newBoards);
-        setCards();
+        setCards([]);
         setSelectedBoard(null);
       })
       .catch((error) => {
