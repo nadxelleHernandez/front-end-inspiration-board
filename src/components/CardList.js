@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import NoteCard from "./Card";
 import Card from 'react-bootstrap/Card';
 import { faNoteSticky } from '@fortawesome/free-regular-svg-icons';
@@ -9,6 +9,7 @@ import "./CardList.css"
 
 
 function CardList ({boardTitle, cards, updateLike, deleteCard}) {
+    const [sortState, setSortState] = useState(null);
     const cardComponents = cards.map(card =>{
         return <NoteCard 
                 id={card.id}
