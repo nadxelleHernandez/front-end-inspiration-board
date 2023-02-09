@@ -47,6 +47,7 @@ function App() {
 
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [cards, setCards] = useState([]);
+  const [sortState, setSortState] = useState(null);
 
   const [showModal, setShowModal] = useState({ show: false, message: "" });
 
