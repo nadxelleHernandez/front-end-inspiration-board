@@ -1,0 +1,22 @@
+:root {
+    --button-hot-pink: #ff8dc6;
+    --button-hover: #ffb3d9;
+    --drop-down-color: #fbd6e9;
+}
+.dropdown {
+    margin-left: auto; 
+    margin-right: 0;
+}
+.dropdown-toggle.btn.btn-primary {
+    background-color: var(--button-hot-pink);
+    border: var(--button-hot-pink);
+}
+.dropdown-toggle.btn.btn-primary:hover {
+    background-color: var(--button-hover);
+    border: var(--button-hover);
+}
+.dropdown-menu.show {
+    background-color: var(--drop-down-color);
+}
+
+
