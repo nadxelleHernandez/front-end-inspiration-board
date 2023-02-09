@@ -43,13 +43,8 @@ const fetchCardsAPI = (boardId) =>{
 }
 
 function App() {
-  // Displayed by BoardList.
-  // todo: Make an API call to fetch boards after page load.
-  // Creating a new board also updates this state.
   const [boards, setBoards] = useState([]);
 
-  // Updated when user selects a board
-  // todo: Should this contain the cards for the board or use separate state for cards?
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [cards, setCards] = useState([]);
 
@@ -60,8 +55,6 @@ function App() {
     setShowModal({ show: true, message: errorMessage });
 
   const fetchBoards = () => {
-    // todo: Make an API call to fetch boards
-    // and update boards state
     return axios
       .get(`${kBaseUrl}/boards`)
       .then((response) => {
@@ -105,7 +98,6 @@ function App() {
     const newCardData = [...cards];
     createCardAPI(newCard).then((responseData) => {
       if (responseData.statuscode !== 201) {
-        // there was an error
         handleShow(`Error creating the card: ${responseData.message}`);
       } else {
         newCard = responseData.data;
@@ -115,7 +107,6 @@ function App() {
     });
   };
   const updateSelectedBoard = (board) => {
-    // Need to pass {id, title, owner}
     const newSelectedBoard = {
       id: board.id,
       title: board.title,
