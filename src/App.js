@@ -44,11 +44,8 @@ const fetchCardsAPI = (boardId) =>{
 
 function App() {
   const [boards, setBoards] = useState([]);
-
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [cards, setCards] = useState([]);
-  const [sortState, setSortState] = useState(null);
-
   const [showModal, setShowModal] = useState({ show: false, message: "" });
 
   const handleClose = () => setShowModal({ show: false, message: "" });
@@ -187,6 +184,12 @@ function App() {
       });
   };
 
+  const handleSortCards = (sortFunc) => {
+    const newCards = [...cards];
+    newCards.sort(sortFunc);
+    setCards(newCards);
+  };
+
   return (
     <div className="Inspiration Board">
       <header className="Inspo-Board">
@@ -225,6 +228,7 @@ function App() {
                   cards={cards}
                   updateLike={updateLikeCallBack}
                   deleteCard={deleteCardCallBack}
+                  onHandleSortCards={handleSortCards}
                 />,
               ]}
             </Col>

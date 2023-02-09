@@ -8,13 +8,13 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import "./CardList.css"
 
 
-function CardList ({boardTitle, cards, updateLike, deleteCard}) {
+function CardList ({boardTitle, cards, updateLike, deleteCard, onHandleSortCards}) {
     const sortMethods = {
         id: { method: (a, b) => (a.id-b.id) },
-        alphabetically: { method: (a, b) => (a.message-b.message) },
+        alphabetically: { method: (a, b) => (a.message.localeCompare(b.message)) },
         likes: { method: (a, b) => (a.likes-b.likes) }
     };
-    
+
     const cardComponents = cards.map(card =>{
         return <NoteCard 
                 id={card.id}
@@ -32,9 +32,9 @@ function CardList ({boardTitle, cards, updateLike, deleteCard}) {
                         <FontAwesomeIcon icon={faNoteSticky}/> Cards for <span className="font-italic">{boardTitle}</span>
                     </div>
                     <DropdownButton id="dropdown-basic-button" title="Sort by">
-                        <Dropdown.Item href="#/action-1">ID</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">A-Z</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Likes</Dropdown.Item>
+                        <Dropdown.Item onClick={(e) => onHandleSortCards(sortMethods.id.method)}>ID</Dropdown.Item>
+                        <Dropdown.Item onClick={(e) => onHandleSortCards(sortMethods.alphabetically.method)}>A-Z</Dropdown.Item>
+                        <Dropdown.Item onClick={(e) => onHandleSortCards(sortMethods.likes.method)}>Likes</Dropdown.Item>
                     </DropdownButton>
                 </Card.Header>
                 <Card.Body className="d-flex flex-wrap">
