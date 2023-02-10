@@ -1,0 +1,14 @@
+:root {
+    --drop-down-color: #fbd6e9;
+}
+select.form-select {
+    width: 20%;
+    margin-left: auto; 
+    margin-right: 0;
+    background-color: hsl(303, 54%, 93%);
+    border: hsl(303, 54%, 93%);
+}
+select.form-select:hover {
+    background-color: var(--drop-down-color);
+    border: var(--drop-down-color);
+}
