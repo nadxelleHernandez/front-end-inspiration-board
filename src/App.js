@@ -31,16 +31,16 @@ const createCardAPI = (card) => {
     });
 };
 
-const fetchCardsAPI = (boardId) =>{
-    return axios
-      .get(`${kBaseUrl}/boards/${boardId}`)
-      .then((response) =>{
-        return response.data;
-      })
-      .catch((error)=> {
-        console.log(error.response.data)
-      });
-}
+const fetchCardsAPI = (boardId) => {
+  return axios
+    .get(`${kBaseUrl}/boards/${boardId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+};
 
 function App() {
   const [boards, setBoards] = useState([]);
@@ -64,23 +64,26 @@ function App() {
         handleShow(`Cannot fetch the Boards at this time. Try again later`);
       });
   };
+
   useEffect(() => {
     fetchBoards();
   }, []);
-  
-  const verifyBoardTitle = (title)=>{
-    for (let board of boards){
-      if (board.title === title){
-        handleShow(`A board named '${title}' already exists. Please choose a different name.`);
+
+  const verifyBoardTitle = (title) => {
+    for (let board of boards) {
+      if (board.title === title) {
+        handleShow(
+          `A board named '${title}' already exists. Please choose a different name.`
+        );
         return false;
       }
     }
     return true;
-  }
+  };
 
   const addBoard = (newBoard) => {
     const verificationResult = verifyBoardTitle(newBoard.title);
-    if (verificationResult){
+    if (verificationResult) {
       return axios
         .post(`${kBaseUrl}/boards`, newBoard)
         .then((response) => {
@@ -93,7 +96,8 @@ function App() {
           console.log(error);
           handleShow(`Cannot add a Board at this time. Try again later.`);
         });
-  }};
+    }
+  };
 
   const addCard = (newCard) => {
     const newCardData = [...cards];
@@ -105,10 +109,9 @@ function App() {
         newCardData.push(newCard);
 
         if (sortCardsValue !== "none") {
-          newCardData.sort(sortMethods[sortCardsValue].method)
+          newCardData.sort(sortMethods[sortCardsValue].method);
         }
         setCards(newCardData);
-
       }
     });
   };
@@ -120,8 +123,10 @@ function App() {
       owner: board.owner,
     };
     setSelectedBoard(newSelectedBoard);
-    fetchCardsAPI(board.id).then(boardData =>{setCards(boardData.cards)})
-    setSortCardsValue("none")
+    fetchCardsAPI(board.id).then((boardData) => {
+      setCards(boardData.cards);
+    });
+    setSortCardsValue("none");
   };
 
   const updateLikeCallBack = (cardId) => {
@@ -140,7 +145,7 @@ function App() {
         });
 
         if (sortCardsValue === "likes") {
-          newCards.sort(sortMethods[sortCardsValue].method)
+          newCards.sort(sortMethods[sortCardsValue].method);
         }
         setCards(newCards);
       })
@@ -199,15 +204,15 @@ function App() {
 
   const sortMethods = {
     none: { method: "" },
-    id: { method: (a, b) => (a.id-b.id) },
-    alphabetically: { method: (a, b) => (a.message.localeCompare(b.message)) },
-    likes: { method: (a, b) => (a.likes-b.likes) }
+    id: { method: (a, b) => a.id - b.id },
+    alphabetically: { method: (a, b) => a.message.localeCompare(b.message) },
+    likes: { method: (a, b) => a.likes - b.likes },
   };
 
   const handleSortCards = (sortBy) => {
     setSortCardsValue(sortBy);
     if (sortBy === "none") {
-      return
+      return;
     }
     const newCards = [...cards];
     newCards.sort(sortMethods[sortBy].method);
@@ -241,7 +246,7 @@ function App() {
               />
             </Col>
             <Col sm>
-              <NewBoardForm addBoardCallBack={addBoard}/>
+              <NewBoardForm addBoardCallBack={addBoard} />
             </Col>
           </Row>
           <Row>
